@@ -1,0 +1,11 @@
+.idea
+*.iml
+
+.classpath
+.project
+.settings
+
+target
+pom.xml.versionsBackup
+
+jenkins
