@@ -1,6 +1,7 @@
 package org.codecop.redgreen;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -32,8 +33,17 @@ public class LeaderBoardController {
             res.status(400);
         }
 
-        HashMap<Object, Object> model = new HashMap<>();
+        Map<Object, Object> model = new HashMap<>();
         model.put("current", current);
+        return new ModelAndView(model, "ok.mustache");
+    }
+
+    public ModelAndView clear(@SuppressWarnings("unused") Request req, Response res) {
+        leaderBoard.clear();
+        res.status(200);
+
+        Map<Object, Object> model = new HashMap<>();
+        model.put("current", 1);
         return new ModelAndView(model, "ok.mustache");
     }
 

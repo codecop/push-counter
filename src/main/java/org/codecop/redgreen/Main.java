@@ -19,6 +19,7 @@ public class Main {
         LeaderBoardController leaderBoardController = new LeaderBoardController(new LeaderBoard());
         
         get("/record/:name", (req, res) -> templates().render(leaderBoardController.record(req, res)));
+        get("/clear", (req, res) -> templates().render(leaderBoardController.clear(req, res)));
 
         CalculationController calculationController = new CalculationController();
         // routes

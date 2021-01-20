@@ -20,17 +20,9 @@ import io.restassured.RestAssured;
 import spark.Spark;
 
 /*
- * Eine Datenbank mit 1 Tabelle und 2 Spalten
-  Branch - Green Pushes
-  ev, red pushes auch
-
 API
 Eine einzelne HTML Seite die das Board zeigt
   * seite mit meta refresh drinnen
-
-Eine Post URL wo ich DB löschen kann
-
-Ein Curl in den Builds
 
  */
 
@@ -71,6 +63,19 @@ class APITest {
                     statusCode(201). //
                 assertThat(). //
                     body(containsString("OK"));
+    }
+
+    @Test
+    void shouldClearEntries() {
+        RestAssured. //
+            given(). //
+                port(4567). //
+            when(). //
+                get("/clear"). //
+            then(). //
+                assertThat(). //
+                    statusCode(200); 
+        // TODO this is not really a test
     }
 
     @Test
