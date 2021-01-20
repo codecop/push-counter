@@ -48,7 +48,7 @@ public class LeaderBoardController {
         return new ModelAndView(model, "ok.mustache");
     }
 
-    public ModelAndView clear(@SuppressWarnings("unused") Request req, Response res) {
+    public ModelAndView clear(@SuppressWarnings("unused") Request req, @SuppressWarnings("unused") Response res) {
         logger.info(String.format("Clear"));
 
         leaderBoard.clear();
@@ -56,7 +56,7 @@ public class LeaderBoardController {
         return renderOkWithCurrentCount("Cleared.");
     }
 
-    public ModelAndView overview(Request req, Response res) {
+    public ModelAndView overview(@SuppressWarnings("unused") Request req, @SuppressWarnings("unused") Response res) {
         logger.info(String.format("Overview"));
         List<Score> scores = leaderBoard.getScores();
         
