@@ -1,6 +1,6 @@
 package org.codecop.redgreen;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ class LeaderBoardTest {
     @Test
     void recordFollowingEntries() {
         leaderBoard.record("name", 1);
+
         leaderBoard.record("name", 1);
 
         List<Score> scores = leaderBoard.getScores();
@@ -36,14 +37,33 @@ class LeaderBoardTest {
         assertEquals(2, scores.get(0).getScore());
     }
 
+    @Test
+    void recordMultipleEntriesKeepsOrder() {
+        leaderBoard.record("john", 1);
+        leaderBoard.record("jack", 1);
+        
+        leaderBoard.record("john", 2);
+
+        List<Score> scores = leaderBoard.getScores();
+        assertEquals(2, scores.size());
+        assertEquals(3, scores.get(0).getScore());
+        assertEquals(1, scores.get(1).getScore());
+    }
+
+    @Test
+    void clearAllEntries() {
+        leaderBoard.record("john", 1);
+
+        leaderBoard.clear();
+
+        List<Score> scores = leaderBoard.getScores();
+        assertEquals(0, scores.size());
+    }
+
+    // ideas: keep each entry with time stamp in history for detail score
 }
 
 /*
- * keep order of first element
- * 
- * Eine Datenbank mit 1 Tabelle und 2 Spalten
-  Branch - Green Pushes
-  ev, red pushes auch
 
 API
 Eine einzelne HTML Seite die das Board zeigt

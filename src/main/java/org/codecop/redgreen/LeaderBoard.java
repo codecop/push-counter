@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LeaderBoard {
 
-    private final List<Score> scores = new ArrayList<>();
+    private List<Score> scores = new ArrayList<>();
 
     public List<Score> getScores() {
         return scores;
@@ -27,6 +27,10 @@ public class LeaderBoard {
         Score score = new Score(name);
         scores.add(score);
         return score;
+    }
+
+    public void clear() {
+        scores = new ArrayList<>();
     }
 
 }
