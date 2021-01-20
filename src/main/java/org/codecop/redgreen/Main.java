@@ -1,10 +1,11 @@
-package se.thinkcode.calculator.web;
+package org.codecop.redgreen;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.staticFileLocation;
 
+import se.thinkcode.calculator.web.CalculationController;
 import spark.TemplateEngine;
 import spark.template.mustache.MustacheTemplateEngine;
 
@@ -15,6 +16,10 @@ public class Main {
         port(determinePort()); 
         staticFileLocation("/public");
 
+        
+        
+        
+        
         CalculationController calculationController = new CalculationController();
         // routes
         get("/", (req, res) -> templates().render(calculationController.render("")));

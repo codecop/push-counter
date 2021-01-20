@@ -93,7 +93,7 @@
                         <configuration>
                             <archive>
                                 <manifestEntries>
-                                    <Main-Class>se.thinkcode.calculator.web.Main</Main-Class>
+                                    <Main-Class>org.codecop.redgreen.Main</Main-Class>
                                     <Built-By>Peter 'Code Cop' Kofler, https://www.code-cop.org/</Built-By>
                                     <Version>${project.version}</Version>
                                 </manifestEntries>

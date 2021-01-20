@@ -1,5 +1,6 @@
-package se.thinkcode.calculator.web;
+package org.codecop.redgreen;
 
+import org.codecop.redgreen.Main;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,22 @@ import java.time.Duration;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/*
+ * Eine Datenbank mit 1 Tabelle und 2 Spalten
+  Branch - Green Pushes
+  ev, red pushes auch
+
+API
+Eine einzelne HTML Seite die das Board zeigt
+  * seite mit meta refresh drinnen
+
+Eine Post URL wo ich Branch und rot/grün pushed kann
+Eine Post URL wo ich DB löschen kann
+
+Ein Curl in den Builds
+
+ */
 
 class AdditionTest {
     
