@@ -23,7 +23,8 @@ public class Main {
     }
 
     private static int determinePort() {
-        String port = System.getenv().getOrDefault("PORT", "4567");
+        // String port = System.getenv().getOrDefault("PORT", "4567");
+        String port = System.getProperty("PORT", "4567"); // -DPORT=4567
         return Integer.parseInt(port);
     }
 

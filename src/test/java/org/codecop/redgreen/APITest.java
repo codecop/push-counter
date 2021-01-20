@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.AfterEach;
@@ -22,12 +23,13 @@ import spark.Spark;
 
 class APITest {
 
-    private static final int PORT = 4567;
+    private static final int PORT = 5000 + new Random().nextInt(5000);
 
     WebDriver browser;
 
     @BeforeEach
     void startApplication() {
+        System.getProperties().put("PORT", "" + PORT);
         Main.main(new String[0]);
     }
 
@@ -44,6 +46,7 @@ class APITest {
     @AfterEach
     void stopApplication() {
         Spark.stop();
+        System.getProperties().remove("PORT");
     }
 
     @Test
@@ -96,16 +99,11 @@ class APITest {
                     body(containsString("branch"), //
                          containsString("" + 3));
         
-
         // table with header "branch" and value 3 and height of 3 cells 
-        /*
-        API
-        Eine einzelne HTML Seite die das Board zeigt
-         */
-
     }
 
     // TODO index page has refresh of 1 minute or 30' (meta refresh)
+    // TODO /winner button on the page displays the winner name with an image of Pokal or sth. random for winning  
     // TODO click on branch name brings the same page where the branch is highlighted
     // http://127.0.0.1:4567/<branch-pair>/
     // TODO when the state of the current branch-pair changes, an audio signal is played
