@@ -1,5 +1,9 @@
 package org.codecop.redgreen;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class Score {
 
     public final String name;
@@ -16,6 +20,24 @@ public class Score {
 
     public int getScore() {
         return score;
+    }
+
+    public List<String> ones() {
+        return fill(score % 5, Integer.toString(1));
+    }
+
+    public List<String> fives() {
+        return fill((score % 25) / 5, Integer.toString(5));
+    }
+
+    public List<String> twentyFives() {
+        return fill(score / 25, Integer.toString(25));
+    }
+
+    private List<String> fill(int number, String value) {
+        return IntStream.range(0, number). //
+                mapToObj(i -> value). //
+                collect(Collectors.toList());
     }
 
 }

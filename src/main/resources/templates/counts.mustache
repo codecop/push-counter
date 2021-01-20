@@ -18,7 +18,7 @@
      <b>Branch/Pair</b>
     </div>
     <div class="col-xs-1">Score</div>
-    <div class="col-xs-9">Green builds</div>
+    <div class="col-xs-9">Wins!</div>
    </div>
 
    {{#scores}}
@@ -27,7 +27,17 @@
      <b>{{name}}</b>
     </div>
     <div class="col-xs-1">{{score}}</div>
-    <div class="col-xs-9">xxx</div>
+    <div class="col-xs-9">
+       {{#twentyFives}}
+       <img src="/img/laurels-trophy.png" width="51" height="51" alt="25" title="25" />
+       {{/twentyFives}}
+       {{#fives}}
+       <img src="/img/medal.png" width="51" height="51" alt="5" title="5" />
+       {{/fives}}
+       {{#ones}}
+       <img src="/img/crown-coin.png" width="51" height="51" alt="1" title="1" />
+       {{/ones}}
+    </div>
    </div>
    {{/scores}}
 
