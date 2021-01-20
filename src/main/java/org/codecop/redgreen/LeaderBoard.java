@@ -11,4 +11,10 @@ public class LeaderBoard {
         return scores;
     }
 
+    public void record(String name, int scoreValue) {
+        Score score = new Score(name);
+        score.add(scoreValue);
+        scores.add(score);
+    }
+
 }
