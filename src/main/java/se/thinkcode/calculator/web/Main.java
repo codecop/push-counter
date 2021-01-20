@@ -12,13 +12,20 @@ public class Main {
 
     public static void main(String[] args) {
         // configure Spark
-        port(determinePort());
+        port(determinePort()); 
         staticFileLocation("/public");
-        startServer();
 
+        CalculationController calculationController = new CalculationController();
         // routes
-        get("/", (req, res) -> templates().render(new CalculationController().render("")));
-        post("/calculate", (req, res) -> templates().render(new CalculationController().apply(req, res)));
+        get("/", (req, res) -> templates().render(calculationController.render("")));
+        post("/calculate", (req, res) -> templates().render(calculationController.apply(req, res)));
+        /*
+        // static pages
+        get(to("/"), (req, res) -> pages.welcome());
+        get(to("/welcome"), (req, res) -> pages.welcome());
+        get(to("/requirements"), (req, res) -> pages.requirements());
+        get(to("/add"), (req, res) -> pages.newItemForm());
+        */
     }
 
     private static int determinePort() {
@@ -26,19 +33,6 @@ public class Main {
         return Integer.parseInt(port);
     }
 
-    private static void startServer() {
-        boolean isMaven = System.getenv().containsKey("MAVEN_CMD_LINE_ARGS");
-        boolean fail = Math.random() > 0.75;
-
-        if (isMaven && fail) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ignored) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
-    
     private static TemplateEngine templates() {
         return new MustacheTemplateEngine();
     }

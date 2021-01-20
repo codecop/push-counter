@@ -10,14 +10,21 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import spark.Spark;
+
+import java.time.Duration;
 import java.util.regex.Pattern;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AdditionIT {
+class AdditionTest {
     
     private WebDriver browser;
+    
+    @BeforeEach
+    void startApp() {
+        Main.main(new String[0]);
+    }
 
     @BeforeEach
     void createBrowser() {
@@ -27,6 +34,11 @@ class AdditionIT {
     @AfterEach
     void closeBrowser() {
         browser.quit();
+    }
+    
+    @AfterEach
+    void stopApp() {
+        Spark.stop();
     }
 
     @Test
@@ -45,7 +57,7 @@ class AdditionIT {
         Pattern notEmpty = Pattern.compile("=");
         new FluentWait<>(browser) //
                 .withMessage("Post not finished") //
-                .withTimeout(1, SECONDS) //
+                .withTimeout(Duration.ofSeconds(1)) //
                 .until(ExpectedConditions.textMatches(By.id("result"), notEmpty));
 
         WebElement resultMessage = browser.findElement(By.id("result"));
