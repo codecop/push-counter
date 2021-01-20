@@ -3,7 +3,7 @@ package org.codecop.redgreen;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
-import static spark.Spark.staticFileLocation;
+import static spark.Spark.staticFiles;
 
 import se.thinkcode.calculator.web.CalculationController;
 import spark.TemplateEngine;
@@ -13,13 +13,13 @@ public class Main {
 
     public static void main(String[] args) {
         // configure Spark
-        port(determinePort()); 
-        staticFileLocation("/public");
+        port(determinePort());
+        staticFiles.location("/public");
 
+        LeaderBoardController leaderBoardController = new LeaderBoardController(new LeaderBoard());
         
-        
-        
-        
+        get("/record/:name", (req, res) -> templates().render(leaderBoardController.record(req, res)));
+
         CalculationController calculationController = new CalculationController();
         // routes
         get("/", (req, res) -> templates().render(calculationController.render("")));
@@ -41,5 +41,5 @@ public class Main {
     private static TemplateEngine templates() {
         return new MustacheTemplateEngine();
     }
-        
+
 }

@@ -1,6 +1,11 @@
 package org.codecop.redgreen;
 
-import org.codecop.redgreen.Main;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.Duration;
+import java.util.regex.Pattern;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +16,8 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import io.restassured.RestAssured;
 import spark.Spark;
-
-import java.time.Duration;
-import java.util.regex.Pattern;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
  * Eine Datenbank mit 1 Tabelle und 2 Spalten
@@ -27,24 +28,23 @@ API
 Eine einzelne HTML Seite die das Board zeigt
   * seite mit meta refresh drinnen
 
-Eine Post URL wo ich Branch und rot/grün pushed kann
 Eine Post URL wo ich DB löschen kann
 
 Ein Curl in den Builds
 
  */
 
-class AdditionTest {
-    
-    private WebDriver browser;
-    
+class APITest {
+
+    WebDriver browser;
+
     @BeforeEach
-    void startApp() {
+    void startApplication() {
         Main.main(new String[0]);
     }
 
     @BeforeEach
-    void createBrowser() {
+    void openBrowser() {
         browser = new HtmlUnitDriver();
     }
 
@@ -52,10 +52,25 @@ class AdditionTest {
     void closeBrowser() {
         browser.quit();
     }
-    
+
     @AfterEach
-    void stopApp() {
+    void stopApplication() {
         Spark.stop();
+    }
+
+    @Test
+    void shouldRecordEntries() {
+        RestAssured. //
+            given(). //
+                port(4567). //
+            when(). //
+                params("build", "green"). //
+                get("/record/branch"). //
+            then(). //
+                assertThat(). //
+                    statusCode(201). //
+                assertThat(). //
+                    body(containsString("OK"));
     }
 
     @Test
