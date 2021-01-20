@@ -3,12 +3,16 @@ package org.codecop.redgreen;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 public class LeaderBoardController {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final LeaderBoard leaderBoard;
 
     public LeaderBoardController(LeaderBoard leaderBoard) {
@@ -17,34 +21,39 @@ public class LeaderBoardController {
 
     public ModelAndView record(Request req, Response res) {
         String name = req.params("name");
-        int current = 0;
+        String build = req.queryParams("build");
+        logger.info(String.format("Record %s %s ", name, build));
 
-        if (name != null && name.length() > 0) {
-
-            String build = req.queryParams("build");
-            if ("green".equalsIgnoreCase(build)) {
-                current = leaderBoard.record(name, 1);
-            } else {
-                current = leaderBoard.record(name, -1);
-            }
-            res.status(201);
-
-        } else {
+        if (name == null || name.length() == 0) {
             res.status(400);
+            return render(0);
         }
 
+        int currentScore = 0;
+        if ("green".equalsIgnoreCase(build)) {
+            currentScore = leaderBoard.record(name, 1);
+        } else {
+            currentScore = leaderBoard.record(name, -1);
+        }
+        logger.info(String.format("%s %s currently %s", name, build, currentScore));
+
+        res.status(201);
+        return render(currentScore);
+    }
+
+    private ModelAndView render(int currentScore) {
         Map<Object, Object> model = new HashMap<>();
-        model.put("current", current);
+        model.put("current", currentScore);
         return new ModelAndView(model, "ok.mustache");
     }
 
     public ModelAndView clear(@SuppressWarnings("unused") Request req, Response res) {
+        logger.info(String.format("Clear"));
+
         leaderBoard.clear();
         res.status(200);
 
-        Map<Object, Object> model = new HashMap<>();
-        model.put("current", 1);
-        return new ModelAndView(model, "ok.mustache");
+        return render(1);
     }
 
 }
