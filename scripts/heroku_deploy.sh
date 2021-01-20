@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-heroku deploy:jar target/red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar --app infinite-savannah-24851
+heroku deploy:jar target/red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar --app push-counter

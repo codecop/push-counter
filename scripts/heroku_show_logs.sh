@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-heroku logs --app infinite-savannah-24851
+heroku logs --app push-counter
