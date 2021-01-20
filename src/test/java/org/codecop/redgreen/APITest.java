@@ -20,17 +20,10 @@ import org.openqa.selenium.support.ui.FluentWait;
 import io.restassured.RestAssured;
 import spark.Spark;
 
-/*
-API
-Eine einzelne HTML Seite die das Board zeigt
-  * seite mit meta refresh drinnen
-
- */
-
 class APITest {
 
     private static final int PORT = 4567;
-    
+
     WebDriver browser;
 
     @BeforeEach
@@ -55,12 +48,13 @@ class APITest {
 
     @Test
     void shouldRecordEntries() {
+        // http://127.0.0.1:4567/record/<branch-pair>?build=red|green
         RestAssured. //
             given(). //
                 port(PORT). //
             when(). //
                 params("build", "green"). //
-                get("/record/branch"). //
+                get("/record/" + "branch"). //
             then(). //
                 assertThat(). //
                     statusCode(201). //
@@ -70,6 +64,7 @@ class APITest {
 
     @Test
     void shouldClearEntries() {
+        // http://127.0.0.1:4567/clear
         RestAssured. //
             given(). //
                 port(PORT). //
@@ -77,11 +72,46 @@ class APITest {
                 get("/clear"). //
             then(). //
                 assertThat(). //
-                    statusCode(200); 
+                    statusCode(200);
         // TODO this is not really a test
     }
 
-    @Test @Disabled
+    @Test
+    void shouldListEntriesHtml() {
+        // http://127.0.0.1:4567/
+            
+        for (int i = 0; i < 3; i++) {
+            shouldRecordEntries();
+        }
+
+        RestAssured. //
+            given(). //
+                port(PORT). //
+            when(). //
+                get("/"). //
+            then(). //
+                assertThat(). //
+                    statusCode(200). //
+                assertThat(). //
+                    body(containsString("branch"), //
+                         containsString("" + 3));
+        
+
+        // table with header "branch" and value 3 and height of 3 cells 
+        /*
+        API
+        Eine einzelne HTML Seite die das Board zeigt
+         */
+
+    }
+
+    // TODO index page has refresh of 1 minute or 30' (meta refresh)
+    // TODO click on branch name brings the same page where the branch is highlighted
+    // http://127.0.0.1:4567/<branch-pair>/
+    // TODO when the state of the current branch-pair changes, an audio signal is played
+    
+    @Test
+    @Disabled
     void should_add_2_and_3_and_get_5() {
         // TODO the address should be configurable from environment variables
         browser.get("http://127.0.0.1:" + PORT + "/");

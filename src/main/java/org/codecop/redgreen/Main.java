@@ -17,19 +17,9 @@ public class Main {
         LeaderBoardController leaderBoardController = new LeaderBoardController(new LeaderBoard());
 
         // routes
+        get("/", (req, res) -> templates().render(leaderBoardController.overview(req, res)));
         get("/record/:name", (req, res) -> templates().render(leaderBoardController.record(req, res)));
         get("/clear", (req, res) -> templates().render(leaderBoardController.clear(req, res)));
-
-        /*
-        CalculationController calculationController = new CalculationController();
-        get("/", (req, res) -> templates().render(calculationController.render("")));
-        post("/calculate", (req, res) -> templates().render(calculationController.apply(req, res)));
-        // static pages
-        get(to("/"), (req, res) -> pages.welcome());
-        get(to("/welcome"), (req, res) -> pages.welcome());
-        get(to("/requirements"), (req, res) -> pages.requirements());
-        get(to("/add"), (req, res) -> pages.newItemForm());
-        */
     }
 
     private static int determinePort() {

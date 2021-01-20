@@ -1,6 +1,7 @@
 package org.codecop.redgreen;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -22,11 +23,11 @@ public class LeaderBoardController {
     public ModelAndView record(Request req, Response res) {
         String name = req.params("name");
         String build = req.queryParams("build");
-        logger.info(String.format("Record %s %s ", name, build));
+        logger.info(String.format("Record %s %s", name, build));
 
         if (name == null || name.length() == 0) {
             res.status(400);
-            return render(0);
+            return renderOkWithCurrentCount("Name path missing.");
         }
 
         int currentScore = 0;
@@ -38,10 +39,10 @@ public class LeaderBoardController {
         logger.info(String.format("%s %s currently %s", name, build, currentScore));
 
         res.status(201);
-        return render(currentScore);
+        return renderOkWithCurrentCount(Integer.toString(currentScore));
     }
 
-    private ModelAndView render(int currentScore) {
+    private ModelAndView renderOkWithCurrentCount(String currentScore) {
         Map<Object, Object> model = new HashMap<>();
         model.put("current", currentScore);
         return new ModelAndView(model, "ok.mustache");
@@ -51,9 +52,17 @@ public class LeaderBoardController {
         logger.info(String.format("Clear"));
 
         leaderBoard.clear();
-        res.status(200);
 
-        return render(1);
+        return renderOkWithCurrentCount("Cleared.");
+    }
+
+    public ModelAndView overview(Request req, Response res) {
+        logger.info(String.format("Overview"));
+        List<Score> scores = leaderBoard.getScores();
+        
+        Map<Object, Object> model = new HashMap<>();
+        model.put("scores", scores);
+        return new ModelAndView(model, "counts.mustache");
     }
 
 }
