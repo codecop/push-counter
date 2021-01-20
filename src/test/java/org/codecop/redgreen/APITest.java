@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -78,7 +79,7 @@ class APITest {
         // TODO this is not really a test
     }
 
-    @Test
+    @Test @Disabled
     void should_add_2_and_3_and_get_5() {
         // TODO the address should be configurable from environment variables
         browser.get("http://127.0.0.1:4567/");
