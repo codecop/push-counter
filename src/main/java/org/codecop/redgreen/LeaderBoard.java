@@ -12,9 +12,21 @@ public class LeaderBoard {
     }
 
     public void record(String name, int scoreValue) {
-        Score score = new Score(name);
+        Score score = findScore(name);
         score.add(scoreValue);
+    }
+
+    private Score findScore(String name) {
+        return scores.stream(). //
+                filter(score -> score.name.equals(name)). //
+                findFirst(). //
+                orElseGet(() -> newScore(name));
+    }
+
+    private Score newScore(String name) {
+        Score score = new Score(name);
         scores.add(score);
+        return score;
     }
 
 }

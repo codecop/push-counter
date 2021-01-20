@@ -26,6 +26,16 @@ class LeaderBoardTest {
         assertEquals(1, scores.get(0).getScore());
     }
 
+    @Test
+    void recordFollowingEntries() {
+        leaderBoard.record("name", 1);
+        leaderBoard.record("name", 1);
+
+        List<Score> scores = leaderBoard.getScores();
+        assertEquals(1, scores.size());
+        assertEquals(2, scores.get(0).getScore());
+    }
+
 }
 
 /*
