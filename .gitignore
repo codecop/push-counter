@@ -1,11 +1,16 @@
+# Intellij
 .idea
 *.iml
 
+# Eclipse
 .classpath
 .project
 .settings
 
+# Maven
 target
 pom.xml.versionsBackup
 
-jenkins
+# Vim
+*~
+*.swp

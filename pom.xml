@@ -1,54 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>se.thinkcode</groupId>
-    <artifactId>calculator</artifactId>
-    <version>0.0.1</version>
-    <name>Calculator Continuous Delivery Workshop</name>
-    <description>Calculator web application with unit and system tests.</description>
+    <groupId>org.codecop</groupId>
+    <artifactId>red-green-counter</artifactId>
+    <name>Red Green Counter Dashboard Application</name>
+    <version>1.0-SNAPSHOT</version>
+    <description>Counter dashboard of positive and negative events for Coding Dojo "championships".</description>
+    <inceptionYear>2021</inceptionYear>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <spark.version>2.5.5</spark.version>
+        <slf4j.version>1.7.13</slf4j.version>
+        <jetty.version>9.3.6.v20151106</jetty.version>
+        <junit.version>5.7.0</junit.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
-            <version>2.6.0</version>
+            <version>${spark.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-template-mustache</artifactId>
-            <version>2.5.5</version>
+            <version>2.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.13</version>
+            <version>${slf4j.version}</version>
         </dependency>
-        
+ 
+        <!--test -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>htmlunit-driver</artifactId>
-            <version>2.26</version>
+            <version>2.46.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
+<!-- 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-webapp</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+ -->
+
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
@@ -61,7 +94,7 @@
                             <archive>
                                 <manifestEntries>
                                     <Main-Class>se.thinkcode.calculator.web.Main</Main-Class>
-                                    <Built-By>Peter Kofler, http://www.code-cop.org/ and Thomas Sundberg, http://www.thinkcode.se/</Built-By>
+                                    <Built-By>Peter 'Code Cop' Kofler, https://www.code-cop.org/</Built-By>
                                     <Version>${project.version}</Version>
                                 </manifestEntries>
                             </archive>
