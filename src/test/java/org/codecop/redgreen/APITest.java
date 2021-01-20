@@ -29,6 +29,8 @@ Eine einzelne HTML Seite die das Board zeigt
 
 class APITest {
 
+    private static final int PORT = 4567;
+    
     WebDriver browser;
 
     @BeforeEach
@@ -55,7 +57,7 @@ class APITest {
     void shouldRecordEntries() {
         RestAssured. //
             given(). //
-                port(4567). //
+                port(PORT). //
             when(). //
                 params("build", "green"). //
                 get("/record/branch"). //
@@ -70,7 +72,7 @@ class APITest {
     void shouldClearEntries() {
         RestAssured. //
             given(). //
-                port(4567). //
+                port(PORT). //
             when(). //
                 get("/clear"). //
             then(). //
@@ -82,7 +84,7 @@ class APITest {
     @Test @Disabled
     void should_add_2_and_3_and_get_5() {
         // TODO the address should be configurable from environment variables
-        browser.get("http://127.0.0.1:4567/");
+        browser.get("http://127.0.0.1:" + PORT + "/");
 
         WebElement firstTextField = browser.findElement(By.id("first"));
         WebElement secondTextField = browser.findElement(By.id("second"));
