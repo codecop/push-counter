@@ -1,1 +1,1 @@
-java -jar .\target\calculator-0.0.1-jar-with-dependencies.jar 
+java -jar .\target\red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar %* 
