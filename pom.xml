@@ -59,7 +59,7 @@
             <version>2.46.0</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -73,7 +73,7 @@
             <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
     </dependencies>
 
 <!-- 
@@ -119,6 +119,33 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.codecop.redgreen.Main</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.4</version>
+                <configuration>
+                    <jdkVersion>1.8</jdkVersion>
+                    <appName>push-counter</appName>
+                    <processTypes>
+                        <web>java -jar ./target/red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
+                    </processTypes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
