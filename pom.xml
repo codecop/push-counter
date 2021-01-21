@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.codecop</groupId>
-    <artifactId>red-green-counter</artifactId>
-    <name>Red Green Counter Dashboard Application</name>
+    <artifactId>push-counter</artifactId>
+    <name>Push Counter Dashboard</name>
     <version>1.0-SNAPSHOT</version>
-    <description>Counter dashboard of positive and negative events for Coding Dojo "championships".</description>
+    <description>Counter dashboard of positive and negative push events during Coding Dojo "championships".</description>
     <inceptionYear>2021</inceptionYear>
 
     <properties>
@@ -38,7 +38,7 @@
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
- 
+
         <!--test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -76,7 +76,7 @@
 
     </dependencies>
 
-<!-- 
+<!--
     <dependencyManagement>
         <dependencies>
             <dependency>
