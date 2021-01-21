@@ -1,0 +1,30 @@
+name: CI Workflow Java Maven
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Build and test
+      run: mvn -B test
+
+    - name: Keep JAR file
+      uses: actions/upload-artifact@v2
+      with:
+        name: Package
+        path: target/red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar
