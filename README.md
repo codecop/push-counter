@@ -2,6 +2,17 @@
 
 Counter dashboard of positive and negative push events during Coding Dojo "championships".
 
+Running the project
+-------------------
+
+Once you have configured and installed Maven, Java Development Kit and Push Counter, you can start the application by running this command from the root folder of the project:
+
+```bash
+mvn exec:java
+```
+
+The application will then be available at [localhost](http://localhost:4567).
+
 ## Running the project in Docker
 
 The application is published on the [docker hub](https://hub.docker.com/r/codecop/push-counter). You can run it like this:
