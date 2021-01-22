@@ -114,6 +114,7 @@
                 </executions>
             </plugin>
             <plugin>
+                <!-- use mvn exec:java -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
@@ -129,12 +130,17 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- use mvn heroku:deploy -->
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>3.0.4</version>
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
                     <appName>push-counter</appName>
+                    <includeTarget>false</includeTarget>
+                    <includes>
+                        <include>./target/push-counter-1.0-SNAPSHOT-jar-with-dependencies.jar</include>
+                    </includes>
                     <processTypes>
                         <web>java -jar ./target/push-counter-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
                     </processTypes>
