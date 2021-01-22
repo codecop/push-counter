@@ -27,7 +27,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Package
-        path: target/red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar
+        path: target/push-counter-1.0-SNAPSHOT-jar-with-dependencies.jar
 
   package:
     runs-on: ubuntu-latest

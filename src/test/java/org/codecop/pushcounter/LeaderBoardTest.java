@@ -1,4 +1,4 @@
-package org.codecop.redgreen;
+package org.codecop.pushcounter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

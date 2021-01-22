@@ -1,1 +1,1 @@
-java -jar .\target\red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar %* 
+java -jar .\target\push-counter-1.0-SNAPSHOT-jar-with-dependencies.jar %* 

@@ -1,4 +1,4 @@
-package org.codecop.redgreen;
+package org.codecop.pushcounter;
 
 import static spark.Spark.get;
 import static spark.Spark.port;

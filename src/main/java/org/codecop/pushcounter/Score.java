@@ -1,4 +1,4 @@
-package org.codecop.redgreen;
+package org.codecop.pushcounter;
 
 import java.util.List;
 import java.util.stream.Collectors;
