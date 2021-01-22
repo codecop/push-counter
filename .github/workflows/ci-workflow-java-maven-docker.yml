@@ -1,0 +1,51 @@
+name: CI Workflow Java Maven Docker
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Build and test with Maven
+      run: mvn -B clean test package
+
+    - name: Keep JAR file
+      uses: actions/upload-artifact@v2
+      with:
+        name: Package
+        path: target/red-green-counter-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+  package:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+
+    - name: Download JAR file
+      uses: actions/download-artifact@v2
+      with:
+        name: Package
+        path: target
+
+    - name: Build the latest Docker image
+      run: docker build . --file Dockerfile --tag codecop/push-counter:latest
+
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - name: Push the latest Docker image to Docker Hub
+      run: docker push codecop/push-counter:latest
