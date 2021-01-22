@@ -23,15 +23,15 @@ public class Score {
     }
 
     public List<String> ones() {
-        return fill(score % 5, Integer.toString(1));
+        return fill(getScore() % 5, Integer.toString(1));
     }
 
     public List<String> fives() {
-        return fill((score % 25) / 5, Integer.toString(5));
+        return fill((getScore() % 25) / 5, Integer.toString(5));
     }
 
     public List<String> twentyFives() {
-        return fill(score / 25, Integer.toString(25));
+        return fill(getScore() / 25, Integer.toString(25));
     }
 
     private List<String> fill(int number, String value) {

@@ -33,4 +33,8 @@ public class LeaderBoard {
         scores = new ArrayList<>();
     }
 
+    // TODO Check for Spark Java Concurrency - add and add need synchronised?
+    // scores -> CopyOnWriteArrayList
+    // single score -> add/getScore are synchronised (or use atomic integer internal)
+
 }

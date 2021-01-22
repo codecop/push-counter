@@ -23,11 +23,12 @@ public class Main {
     }
 
     private static int determinePort() {
-        // get Heroku assigned üort
+        // get the Heroku assigned port
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
+        // else get the test assigned port
         String port = System.getProperty("PORT", "4567"); // -DPORT=4567
         return Integer.parseInt(port);
     }

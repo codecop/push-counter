@@ -63,6 +63,7 @@ class APITest {
                     statusCode(201). //
                 assertThat(). //
                     body(containsString("OK"));
+        // TODO Response should be valid JSON with ContentType JSON.
     }
 
     @Test
@@ -77,12 +78,13 @@ class APITest {
                 assertThat(). //
                     statusCode(200);
         // TODO this is not really a test
+        // TODO Response should be valid JSON with ContentType JSON.
     }
 
     @Test
     void shouldListEntriesHtml() {
         // http://127.0.0.1:4567/
-            
+
         for (int i = 0; i < 3; i++) {
             shouldRecordEntries();
         }
@@ -98,16 +100,16 @@ class APITest {
                 assertThat(). //
                     body(containsString("branch"), //
                          containsString("" + 3));
-        
-        // table with header "branch" and value 3 and height of 3 cells 
+        // TODO Test for number of score images. 
     }
 
-    // TODO index page has refresh of 1 minute or 30' (meta refresh)
-    // TODO /winner button on the page displays the winner name with an image of Pokal or sth. random for winning  
-    // TODO click on branch name brings the same page where the branch is highlighted
+    // TODO Index page has refresh of 1 minute or 30' (meta refresh).
+    // TODO /winner button on the page displays the winner name with an proper image.  
+    // TODO Click on branch name brings the same page where the branch is highlighted so I see my own score better.
     // http://127.0.0.1:4567/<branch-pair>/
-    // TODO when the state of the current branch-pair changes, an audio signal is played
-    
+    // TODO When the state of the current branch-pair (when selected) changes, a winning audio signal is played.
+    // TODO When the state of the overall scores changes, an audio signal is played. (by appending the previous total score)
+
     @Test
     @Disabled
     void should_add_2_and_3_and_get_5() {

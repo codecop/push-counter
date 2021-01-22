@@ -35,4 +35,6 @@ class ScoreTest {
         assertEquals(4, score.twentyFives().size());
     }
 
+    // TODO Do not allow resulting score values < 0.
+
 }

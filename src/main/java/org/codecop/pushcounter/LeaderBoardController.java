@@ -30,6 +30,7 @@ public class LeaderBoardController {
             return renderOkWithCurrentCount("Name path missing.");
         }
 
+        // TODO count is useless, drop logic of count
         int currentScore = 0;
         if ("green".equalsIgnoreCase(build)) {
             currentScore = leaderBoard.record(name, 1);
@@ -59,7 +60,7 @@ public class LeaderBoardController {
     public ModelAndView overview(@SuppressWarnings("unused") Request req, @SuppressWarnings("unused") Response res) {
         logger.info(String.format("Overview"));
         List<Score> scores = leaderBoard.getScores();
-        
+
         Map<Object, Object> model = new HashMap<>();
         model.put("scores", scores);
         return new ModelAndView(model, "counts.mustache");

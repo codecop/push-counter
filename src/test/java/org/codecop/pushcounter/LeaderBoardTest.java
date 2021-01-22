@@ -61,6 +61,5 @@ class LeaderBoardTest {
         assertEquals(0, scores.size());
     }
 
-    // ideas: keep each entry with time stamp in history for detail score
-    // TODO do not allow values < 0
+    // TODO Keep each entry with its time stamp as history for detailed score, too.
 }
