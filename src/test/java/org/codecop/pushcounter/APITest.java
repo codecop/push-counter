@@ -19,12 +19,15 @@ class APITest {
     void startApplication() {
         System.getProperties().put("PORT", "" + PORT);
         Main.main(new String[0]);
+        Spark.awaitInitialization();
     }
 
     @AfterEach
-    void stopApplication() {
+    void stopApplication() throws InterruptedException {
         Spark.stop();
         System.getProperties().remove("PORT");
+        // Spark.awaitTermination();
+        Thread.sleep(250);
     }
 
     @Test
