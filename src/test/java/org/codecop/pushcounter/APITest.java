@@ -90,5 +90,10 @@ class APITest {
     // http://127.0.0.1:4567/<branch-pair>/
     // TODO When the state of the current branch-pair (when selected) changes, a winning audio signal is played.
     // TODO When the state of the overall scores changes, an audio signal is played. (by appending the previous total score)
+    // TODO if accept is JSON show the board as JSON - like load/save
+    // TODO if type is JSON and post, merge the given data into the board (use DTOs using GSON?)
+    // TODO admin=true parameter which adds links to clear, to add to each user and to add new user with form field
+    // (user name should also be a form post param)
+    // TODO finished=true highlights the winner (possible more than 1) and show some icon, the winner stairs large)
 
 }
