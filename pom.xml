@@ -89,6 +89,26 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>4.0.3</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+                    </includeOnlyProperties>
+                    <commitIdGenerationMode>full</commitIdGenerationMode>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
@@ -113,6 +133,7 @@
                                     <Main-Class>org.codecop.pushcounter.Main</Main-Class>
                                     <Built-By>Peter 'Code Cop' Kofler, https://www.code-cop.org/</Built-By>
                                     <Version>${project.version}</Version>
+                                    <Git-Version>${git.commit.id.full}</Git-Version>
                                 </manifestEntries>
                             </archive>
                             <descriptorRefs>
