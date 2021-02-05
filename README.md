@@ -1,6 +1,6 @@
 # Push Counter
 
-Counter dashboard of positive and negative push events during Coding Dojo "championships".
+Counter dash board of positive and negative push events during Coding Dojo "championships".
 
 Running the project
 -------------------
@@ -11,7 +11,7 @@ Once you have configured and installed Maven, Java Development Kit and Push Coun
 mvn exec:java
 ```
 
-The application will then be available at [localhost](http://localhost:4567).
+The application will then be available at [localhost](http://localhost:4567) port 4567.
 
 ## Running the project in Docker
 
@@ -21,7 +21,7 @@ The application is published on the [docker hub](https://hub.docker.com/r/codeco
 docker run -p4567:4567 "codecop/push-counter"
 ```
 
-The application will then be available at [localhost](http://localhost:4567).
+The application will then be available at [localhost](http://localhost:4567) port 4567.
 
 ## License
 

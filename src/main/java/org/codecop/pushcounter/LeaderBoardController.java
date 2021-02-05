@@ -57,12 +57,14 @@ public class LeaderBoardController {
         return renderOkWithCurrentCount("Cleared.");
     }
 
-    public ModelAndView overview(@SuppressWarnings("unused") Request req, @SuppressWarnings("unused") Response res) {
+    public ModelAndView overview(Request req, @SuppressWarnings("unused") Response res) {
         logger.info(String.format("Overview"));
         List<Score> scores = leaderBoard.getScores();
 
         Map<Object, Object> model = new HashMap<>();
         model.put("scores", scores);
+        model.put("refresh", Boolean.TRUE.toString().equalsIgnoreCase(req.queryParams("refresh")));
+
         return new ModelAndView(model, "counts.mustache");
     }
 

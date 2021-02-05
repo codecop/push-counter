@@ -32,7 +32,7 @@ class APITest {
 
     @Test
     void shouldRecordEntries() {
-        // http://127.0.0.1:4567/record/<branch-pair>?build=red|green
+        // http://127.0.0.1:4567/record/<branch-pair>?build=green|<whatever>
         RestAssured. //
             given(). //
                 port(PORT). //
@@ -81,10 +81,26 @@ class APITest {
                 assertThat(). //
                     body(containsString("branch"), //
                          containsString("" + 3));
-        // TODO Test for number of score images. 
+        // TODO assert number of score images. 
     }
 
-    // TODO Index page has refresh of 1 minute or 30' (meta refresh).
+    @Test
+    void shouldRefreshItself() {
+        // http://127.0.0.1:4567/?refresh=true
+
+        RestAssured. //
+            given(). //
+                port(PORT). //
+            when(). //
+                param("refresh", true). //
+                get("/"). //
+            then(). //
+                assertThat(). //
+                    statusCode(200). //
+                assertThat(). //
+                    body(containsString("<meta http-equiv=\"refresh\" content=\"15\" />"));
+    }
+    
     // TODO /winner button on the page displays the winner name with an proper image.  
     // TODO Click on branch name brings the same page where the branch is highlighted so I see my own score better.
     // http://127.0.0.1:4567/<branch-pair>/
@@ -96,5 +112,7 @@ class APITest {
     // (user name should also be a form post param)
     // TODO finished=true highlights the winner (possible more than 1) and show some icon, the winner stairs large)
     // TODO show detailed history with time stamps for each event as a list on time line (wird red and green and orange dots) - with character for each minute.
+    // TODO in HTML: Code Cop Link and Logo
+    // TODO in HTML: Application version? Github id?
 
 }
