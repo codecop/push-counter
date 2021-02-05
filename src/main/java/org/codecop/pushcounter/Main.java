@@ -19,8 +19,8 @@ public class Main {
         // routes
         LeaderBoardController leaderBoardController = new LeaderBoardController(new LeaderBoard());
         get("/", (req, res) -> templates().render(leaderBoardController.overview(req, res)));
-        get("/record/:name", (req, res) -> templates().render(leaderBoardController.record(req, res)));
-        get("/clear", (req, res) -> templates().render(leaderBoardController.clear(req, res)));
+        get("/record/:name", (req, res) -> leaderBoardController.record(req, res));
+        get("/clear", (req, res) -> leaderBoardController.clear(req, res));
         
         VersionController versionController = new VersionController();
         get("/version", (req, res) -> versionController.show(req, res));

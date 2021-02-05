@@ -1,6 +1,7 @@
 package org.codecop.pushcounter;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 
 import org.codecop.pushcounter.ApplicationSetupExtension.Port;
 import org.junit.jupiter.api.Test;
@@ -17,13 +18,14 @@ class APITest {
         RestAssured. //
             given(). //
                 port(port). //
+                accept("application/json"). //
             when(). //
                 params("build", "green"). //
                 get("/record/" + "branch"). //
             then(). //
                 statusCode(201). //
-                body(containsString("OK"));
-        // TODO Response should be valid JSON with ContentType JSON.
+                header("Content-Type", equalTo("application/json")). //
+                body(equalTo("{ \"message\": \"Saved.\" }"));
     }
 
     @Test
@@ -32,12 +34,14 @@ class APITest {
         RestAssured. //
             given(). //
                 port(port). //
+                accept("application/json"). //
             when(). //
                 get("/clear"). //
             then(). //
-                statusCode(200);
+                statusCode(200). //
+                header("Content-Type", equalTo("application/json")). //
+                body(equalTo("{ \"message\": \"Cleared.\" }"));
         // TODO this is not really a test
-        // TODO Response should be valid JSON with ContentType JSON.
     }
 
     @Test

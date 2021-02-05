@@ -20,7 +20,7 @@ public class LeaderBoardController {
         this.leaderBoard = leaderBoard;
     }
 
-    public ModelAndView record(Request req, Response res) {
+    public String record(Request req, Response res) {
         String name = req.params("name");
         String build = req.queryParams("build");
         logger.info(String.format("Record %s %s", name, build));
@@ -38,20 +38,20 @@ public class LeaderBoardController {
         logger.info(String.format("%s %s", name, build));
 
         res.status(201);
+        res.header("Content-Type", "application/json");
         return renderOkWithCurrentCount("Saved.");
     }
 
-    private ModelAndView renderOkWithCurrentCount(String currentScore) {
-        Map<Object, Object> model = new HashMap<>();
-        model.put("current", currentScore);
-        return new ModelAndView(model, "ok.mustache");
+    private String renderOkWithCurrentCount(String message) {
+        return "{ \"message\": \"" + message + "\" }";
     }
 
-    public ModelAndView clear(@SuppressWarnings("unused") Request req, @SuppressWarnings("unused") Response res) {
+    public String clear(@SuppressWarnings("unused") Request req, Response res) {
         logger.info(String.format("Clear"));
 
         leaderBoard.clear();
 
+        res.header("Content-Type", "application/json");
         return renderOkWithCurrentCount("Cleared.");
     }
 
