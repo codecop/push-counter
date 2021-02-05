@@ -2,40 +2,21 @@ package org.codecop.pushcounter;
 
 import static org.hamcrest.Matchers.containsString;
 
-import java.util.Random;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.codecop.pushcounter.ApplicationSetupExtension.Port;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import io.restassured.RestAssured;
-import spark.Spark;
 
+@ExtendWith(ApplicationSetupExtension.class)
 class APITest {
 
-    private static final int PORT = 5000 + new Random().nextInt(5000);
-
-    @BeforeEach
-    void startApplication() {
-        System.getProperties().put("PORT", "" + PORT);
-        Main.main(new String[0]);
-        Spark.awaitInitialization();
-    }
-
-    @AfterEach
-    void stopApplication() throws InterruptedException {
-        Spark.stop();
-        System.getProperties().remove("PORT");
-        // Spark.awaitTermination();
-        Thread.sleep(250);
-    }
-
     @Test
-    void shouldRecordEntries() {
+    void shouldRecordEntries(@Port int port) {
         // http://127.0.0.1:4567/record/<branch-pair>?build=green|<whatever>
         RestAssured. //
             given(). //
-                port(PORT). //
+                port(port). //
             when(). //
                 params("build", "green"). //
                 get("/record/" + "branch"). //
@@ -46,11 +27,11 @@ class APITest {
     }
 
     @Test
-    void shouldClearEntries() {
+    void shouldClearEntries(@Port int port) {
         // http://127.0.0.1:4567/clear
         RestAssured. //
             given(). //
-                port(PORT). //
+                port(port). //
             when(). //
                 get("/clear"). //
             then(). //
@@ -60,16 +41,16 @@ class APITest {
     }
 
     @Test
-    void shouldListEntriesHtml() {
+    void shouldListEntriesHtml(@Port int port) {
         // http://127.0.0.1:4567/
 
         for (int i = 0; i < 3; i++) {
-            shouldRecordEntries();
+            shouldRecordEntries(port);
         }
 
         RestAssured. //
             given(). //
-                port(PORT). //
+                port(port). //
             when(). //
                 get("/"). //
             then(). //
@@ -80,12 +61,12 @@ class APITest {
     }
 
     @Test
-    void shouldRefreshItself() {
+    void shouldRefreshItself(@Port int port) {
         // http://127.0.0.1:4567/?refresh=true
 
         RestAssured. //
             given(). //
-                port(PORT). //
+                port(port). //
             when(). //
                 param("refresh", true). //
                 get("/"). //
