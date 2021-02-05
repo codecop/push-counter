@@ -40,10 +40,8 @@ class APITest {
                 params("build", "green"). //
                 get("/record/" + "branch"). //
             then(). //
-                assertThat(). //
-                    statusCode(201). //
-                assertThat(). //
-                    body(containsString("OK"));
+                statusCode(201). //
+                body(containsString("OK"));
         // TODO Response should be valid JSON with ContentType JSON.
     }
 
@@ -56,8 +54,7 @@ class APITest {
             when(). //
                 get("/clear"). //
             then(). //
-                assertThat(). //
-                    statusCode(200);
+                statusCode(200);
         // TODO this is not really a test
         // TODO Response should be valid JSON with ContentType JSON.
     }
@@ -76,11 +73,9 @@ class APITest {
             when(). //
                 get("/"). //
             then(). //
-                assertThat(). //
-                    statusCode(200). //
-                assertThat(). //
-                    body(containsString("branch"), //
-                         containsString("" + 3));
+                statusCode(200). //
+                body(containsString("branch"), //
+                     containsString("" + 3));
         // TODO assert number of score images. 
     }
 
@@ -95,10 +90,8 @@ class APITest {
                 param("refresh", true). //
                 get("/"). //
             then(). //
-                assertThat(). //
-                    statusCode(200). //
-                assertThat(). //
-                    body(containsString("<meta http-equiv=\"refresh\" content=\"15\" />"));
+                statusCode(200). //
+                body(containsString("<meta http-equiv=\"refresh\" content=\"15\" />"));
     }
     
     // TODO /winner button on the page displays the winner name with an proper image.  
