@@ -13,9 +13,8 @@ public class Score {
         this.name = name;
     }
 
-    public int add(int scoreValue) {
+    public void add(int scoreValue) {
         score += scoreValue;
-        return score;
     }
 
     public int getScore() {

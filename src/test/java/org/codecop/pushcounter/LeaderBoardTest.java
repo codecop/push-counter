@@ -42,13 +42,12 @@ class LeaderBoardTest {
         leaderBoard.record("john", 1);
         leaderBoard.record("jack", 1);
 
-        int current = leaderBoard.record("john", 2);
+        leaderBoard.record("john", 2);
 
         List<Score> scores = leaderBoard.getScores();
         assertEquals(2, scores.size());
         assertEquals(3, scores.get(0).getScore());
         assertEquals(1, scores.get(1).getScore());
-        assertEquals(3, current);
     }
 
     @Test

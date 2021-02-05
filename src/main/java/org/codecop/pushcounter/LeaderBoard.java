@@ -11,9 +11,9 @@ public class LeaderBoard {
         return scores;
     }
 
-    public int record(String name, int scoreValue) {
+    public void record(String name, int scoreValue) {
         Score score = findScore(name);
-        return score.add(scoreValue);
+        score.add(scoreValue);
     }
 
     private Score findScore(String name) {

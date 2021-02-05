@@ -30,17 +30,15 @@ public class LeaderBoardController {
             return renderOkWithCurrentCount("Name path missing.");
         }
 
-        // TODO count is useless, drop logic of count
-        int currentScore = 0;
         if ("green".equalsIgnoreCase(build)) {
-            currentScore = leaderBoard.record(name, 1);
+            leaderBoard.record(name, 1);
         } else {
-            currentScore = leaderBoard.record(name, -1);
+            leaderBoard.record(name, -1);
         }
-        logger.info(String.format("%s %s currently %s", name, build, currentScore));
+        logger.info(String.format("%s %s", name, build));
 
         res.status(201);
-        return renderOkWithCurrentCount(Integer.toString(currentScore));
+        return renderOkWithCurrentCount("Saved.");
     }
 
     private ModelAndView renderOkWithCurrentCount(String currentScore) {
