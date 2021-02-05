@@ -112,7 +112,6 @@ class APITest {
     // (user name should also be a form post param)
     // TODO finished=true highlights the winner (possible more than 1) and show some icon, the winner stairs large)
     // TODO show detailed history with time stamps for each event as a list on time line (wird red and green and orange dots) - with character for each minute.
-    // TODO in HTML: Code Cop Link and Logo
     // TODO in HTML: Application version? Github id?
 
 }
