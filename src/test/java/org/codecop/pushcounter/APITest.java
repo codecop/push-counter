@@ -95,5 +95,6 @@ class APITest {
     // TODO admin=true parameter which adds links to clear, to add to each user and to add new user with form field
     // (user name should also be a form post param)
     // TODO finished=true highlights the winner (possible more than 1) and show some icon, the winner stairs large)
+    // TODO show detailed history with time stamps for each event as a list on time line (wird red and green and orange dots) - with character for each minute.
 
 }

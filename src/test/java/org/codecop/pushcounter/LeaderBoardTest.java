@@ -62,4 +62,6 @@ class LeaderBoardTest {
     }
 
     // TODO Keep each entry with its time stamp as history for detailed score, too.
+    // TODO allow entries with delta 0 and delta -1 as well and show them too
+    // entries have +1/0/-1 as category
 }
