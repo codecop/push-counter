@@ -64,6 +64,7 @@ public class LeaderBoardController {
         Map<Object, Object> model = new HashMap<>();
         model.put("scores", scores);
         model.put("refresh", Boolean.TRUE.toString().equalsIgnoreCase(req.queryParams("refresh")));
+        model.put("admin", Boolean.TRUE.toString().equalsIgnoreCase(req.queryParams("admin")));
 
         return new ModelAndView(model, "counts.mustache");
     }
