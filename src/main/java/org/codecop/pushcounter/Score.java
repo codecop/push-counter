@@ -1,24 +1,25 @@
 package org.codecop.pushcounter;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Score {
 
     public final String name;
-    private int score;
+    private final AtomicInteger score = new AtomicInteger();
 
     public Score(String name) {
         this.name = name;
     }
 
     public void add(int scoreValue) {
-        score += scoreValue;
+        score.addAndGet(scoreValue);
     }
 
     public int getScore() {
-        return score;
+        return score.get();
     }
 
     public List<String> ones() {

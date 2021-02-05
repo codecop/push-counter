@@ -7,11 +7,11 @@ public class LeaderBoard {
 
     private List<Score> scores = new ArrayList<>();
 
-    public List<Score> getScores() {
+    public synchronized List<Score> getScores() {
         return scores;
     }
 
-    public void record(String name, int scoreValue) {
+    public synchronized void record(String name, int scoreValue) {
         Score score = findScore(name);
         score.add(scoreValue);
     }
@@ -29,12 +29,8 @@ public class LeaderBoard {
         return score;
     }
 
-    public void clear() {
+    public synchronized void clear() {
         scores = new ArrayList<>();
     }
-
-    // TODO Check for Spark Java Concurrency - add and add need synchronised?
-    // scores -> CopyOnWriteArrayList
-    // single score -> add/getScore are synchronised (or use atomic integer internal)
 
 }
