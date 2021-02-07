@@ -47,6 +47,12 @@
    </div>
    {{/scores}}
 
+   {{#playSound}}
+   <audio autoplay hidden>
+    <source src="/mp3/badge-coin-win.mp3" type="audio/mpeg" />
+    <embed src="/mp3/badge-coin-win.mp3" autostart="true" loop="false" hidden="true" /> 
+   </audio>
+   {{/playSound}}
   </div>
  </div>
 

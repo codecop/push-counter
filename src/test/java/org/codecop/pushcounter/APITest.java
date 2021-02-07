@@ -94,17 +94,48 @@ class APITest {
                 statusCode(200). //
                 body(not(containsString("<meta http-equiv=\"refresh\" content=\"15\" />")));
     }
+
+    @Test
+    void shouldPlayACoinForNewEntryOnce(@Port int port) {
+        String sessionId = RestAssured. //
+            given(). //
+                port(port). //
+            when(). //
+                get("/"). //
+                sessionId();
+
+        shouldRecordEntries(port);
+
+        RestAssured. //
+            given(). //
+                port(port). //
+                sessionId(sessionId). //
+            when(). //
+                get("/"). //
+            then(). //
+                statusCode(200). //
+                body(containsString("badge-coin-win.mp3"));
+
+        RestAssured. //
+            given(). //
+                port(port). //
+                sessionId(sessionId). //
+            when(). //
+                get("/"). //
+            then(). //
+                statusCode(200). //
+                body(not(containsString("badge-coin-win.mp3")));
+    }
     
     // TODO /winner button on the page displays the winner name with an proper image.  
     // TODO Click on branch name brings the same page where the branch is highlighted so I see my own score better.
     // http://127.0.0.1:4567/<branch-pair>/
     // TODO When the state of the current branch-pair (when selected) changes, a winning audio signal is played.
-    // TODO When the state of the overall scores changes, an audio signal is played. (by appending the previous total score)
     // TODO if accept is JSON show the board as JSON - like load/save
     // TODO if type is JSON and post, merge the given data into the board (use DTOs using GSON?)
     // TODO admin=true parameter which adds links to add to each user and to add new user with form field
     // (user name should also be a form post parameter)
     // TODO finished=true highlights the winner (possible more than 1) and show some icon, the winner stairs large)
-    // TODO show detailed history with time stamps for each event as a list on time line (wird red and green and orange dots) - with character for each minute.
+    // TODO show detailed history with time stamps for each event as a list on time line (with red and green and orange dots) - with character for each minute.
 
 }

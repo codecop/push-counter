@@ -23,6 +23,7 @@ public class LeaderBoardController {
     public String record(Request req, Response res) {
         String name = req.params("name");
         String build = req.queryParams("build");
+
         logger.info(String.format("Record %s %s", name, build));
 
         if (name == null || name.length() == 0) {
@@ -35,7 +36,6 @@ public class LeaderBoardController {
         } else {
             leaderBoard.record(name, -1);
         }
-        logger.info(String.format("%s %s", name, build));
 
         res.status(201);
         res.header("Content-Type", "application/json");
@@ -56,13 +56,21 @@ public class LeaderBoardController {
     }
 
     public ModelAndView overview(Request req, @SuppressWarnings("unused") Response res) {
-        logger.info(String.format("Overview"));
+        Integer previousScore = req.session().attribute("total");
+
         List<Score> scores = leaderBoard.getScores();
+        int totalScore = leaderBoard.totalScore();
+        req.session().attribute("total", totalScore);
+
+        logger.info(String.format("Overview %s %s", previousScore, totalScore));
+
+        boolean playSound = previousScore != null && totalScore > previousScore;
 
         Map<Object, Object> model = new HashMap<>();
         model.put("scores", scores);
         model.put("refresh", !Boolean.FALSE.toString().equalsIgnoreCase(req.queryParams("refresh")));
         model.put("admin", Boolean.TRUE.toString().equalsIgnoreCase(req.queryParams("admin")));
+        model.put("playSound", playSound);
 
         return new ModelAndView(model, "counts.mustache");
     }
