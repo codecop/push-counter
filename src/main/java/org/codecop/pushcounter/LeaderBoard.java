@@ -2,18 +2,22 @@ package org.codecop.pushcounter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class LeaderBoard {
 
-    private List<Score> scores = new ArrayList<>();
+    private List<Score> scores = new CopyOnWriteArrayList<>();
+    private AtomicInteger totalScore = new AtomicInteger();
 
-    public synchronized List<Score> getScores() {
+    public List<Score> getScores() {
         return scores;
     }
 
     public synchronized void record(String name, int scoreValue) {
         Score score = findScore(name);
         score.add(scoreValue);
+        totalScore.addAndGet(scoreValue);
     }
 
     private Score findScore(String name) {
@@ -31,6 +35,11 @@ public class LeaderBoard {
 
     public synchronized void clear() {
         scores = new ArrayList<>();
+        totalScore.set(0);
+    }
+
+    public int totalScore() {
+        return totalScore.get();
     }
 
 }
