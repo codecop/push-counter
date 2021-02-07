@@ -2,6 +2,7 @@ package org.codecop.pushcounter;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 import org.codecop.pushcounter.ApplicationSetupExtension.Port;
 import org.junit.jupiter.api.Test;
@@ -65,18 +66,33 @@ class APITest {
     }
 
     @Test
-    void shouldRefreshItself(@Port int port) {
-        // http://127.0.0.1:4567/?refresh=true
+    void shouldRefreshItselfByDefault(@Port int port) {
+        // http://127.0.0.1:4567/
 
         RestAssured. //
             given(). //
                 port(port). //
             when(). //
-                param("refresh", true). //
+                // default = param("refresh", true). //
                 get("/"). //
             then(). //
                 statusCode(200). //
                 body(containsString("<meta http-equiv=\"refresh\" content=\"15\" />"));
+    }
+
+    @Test
+    void shouldNotRefreshItself(@Port int port) {
+        // http://127.0.0.1:4567/?refresh=false
+        
+        RestAssured. //
+            given(). //
+                port(port). //
+            when(). //
+                param("refresh", false). //
+                get("/"). //
+            then(). //
+                statusCode(200). //
+                body(not(containsString("<meta http-equiv=\"refresh\" content=\"15\" />")));
     }
     
     // TODO /winner button on the page displays the winner name with an proper image.  
