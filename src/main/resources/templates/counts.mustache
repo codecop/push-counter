@@ -48,7 +48,7 @@
    {{/scores}}
 
    {{#playSound}}
-   <audio autoplay hidden>
+   <audio autoplay hidden="true">
     <source src="/mp3/badge-coin-win.mp3" type="audio/mpeg" />
     <embed src="/mp3/badge-coin-win.mp3" autostart="true" loop="false" hidden="true" /> 
    </audio>
@@ -74,19 +74,21 @@
        {{/refresh}} 
      </div>
      <div class="col-xs-1"><a href="/version">version</a></div>
-     <div class="col-xs-5">
-       Images by <a href="https://game-icons.net/">Game-icons.net</a>, 
-       licensed <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+     <div class="col-xs-4">
+       Images are <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
        (<a href="https://game-icons.net/1x1/lorc/crown-coin.html">coin</a>, 
         <a href="https://game-icons.net/1x1/lorc/medal.html">medal</a>,
         <a href="https://game-icons.net/1x1/delapouite/laurels-trophy.html">laurels</a>)       
+     </div>
+     <div class="col-xs-2">
+       Sounds are <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC 0</a>
+       (<a href="https://freesound.org/people/steaq/sounds/387232/">coin</a>)
      </div>
      <div class="col-xs-1">
        {{#admin}}
         <a href="/clear">clear</a> 
        {{/admin}} 
      </div>
-     <div class="col-xs-1">.</div>
    </div>
   </div>
  </footer>
