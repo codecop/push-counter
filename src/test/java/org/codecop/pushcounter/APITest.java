@@ -126,16 +126,24 @@ class APITest {
                 statusCode(200). //
                 body(not(containsString("badge-coin-win.mp3")));
     }
-    
-    // TODO /winner button on the page displays the winner name with an proper image.  
+
+    // admin
+    // TODO admin=true parameter which adds links to add/substract to each user
+    // TODO admin=true to add new user with form field (user name should also be a form post parameter)
+
+    // celebrate the winner    
+    // TODO /winner button on the page displays the winner name with an proper image and a clapping hand sound
+    // TODO finished=true highlights the winner (possible more than 1) and show some icon (the winner stairs large) next to winners
+
+    // team perspective
     // TODO Click on branch name brings the same page where the branch is highlighted so I see my own score better.
     // http://127.0.0.1:4567/<branch-pair>/
     // TODO When the state of the current branch-pair (when selected) changes, a winning audio signal is played.
+
+    // load/save
     // TODO if accept is JSON show the board as JSON - like load/save
     // TODO if type is JSON and post, merge the given data into the board (use DTOs using GSON?)
-    // TODO admin=true parameter which adds links to add to each user and to add new user with form field
-    // (user name should also be a form post parameter)
-    // TODO finished=true highlights the winner (possible more than 1) and show some icon, the winner stairs large)
+
     // TODO show detailed history with time stamps for each event as a list on time line (with red and green and orange dots) - with character for each minute.
 
 }
