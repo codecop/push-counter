@@ -43,3 +43,4 @@ Sounds are [CC 0](http://creativecommons.org/publicdomain/zero/1.0/):
 * 22.01. - 1.0h - various client code variations, see [sample client](https://github.com/codecop/push-counter-client)
 * 05.02. - 3.0h - refresh, JSON content type, copyright, version
 * 07.02. - 1.0h - sound
+* 16.02. - 1.0h - +/- links

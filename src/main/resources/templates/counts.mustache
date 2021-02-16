@@ -31,6 +31,10 @@
    <div class="row">
     <div class="col-xs-2">
      <b>{{name}}</b>
+     {{#admin}}
+      <a href="/record/{{name}}?build=green" target="_blank">+</a> 
+      <a href="/record/{{name}}?build=red" target="_blank">-</a> 
+     {{/admin}} 
     </div>
     <div class="col-xs-1">{{score}}</div>
     <div class="col-xs-9">

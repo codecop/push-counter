@@ -172,9 +172,39 @@ class APITest {
                 statusCode(200). //
                 body(not(containsString(MP3_NAME)));
     }
+
+    @Test
+    void shouldHaveAddButtonOnAdminModeOnly() {
+        // http://127.0.0.1:4567/?admin=true
+
+        givenEntryFor("anyUserForPlus");
+
+        // not show for regular
+        RestAssured. //
+            given(). //
+                port(port). //
+            when(). //
+                get("/"). //
+            then(). //
+                statusCode(200). //
+                body(not(containsString("\"/record/anyUserForPlus?build=green\""))). //
+                and(). //
+                body(not(containsString("\"/record/anyUserForPlus?build=red\"")));
+        
+        RestAssured. //
+            given(). //
+                port(port). //
+            when(). //
+                param("admin", true). //
+                get("/"). //
+            then(). //
+                statusCode(200). //
+                body(containsString("\"/record/anyUserForPlus?build=green\"")). //
+                and(). //
+                body(containsString("\"/record/anyUserForPlus?build=red\""));
+    }
     
     // admin
-    // TODO admin=true parameter which adds links to add/substract to each user
     // TODO admin=true to add new user with form field (user name should also be a form post parameter)
 
     // celebrate the winner    
