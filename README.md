@@ -35,3 +35,11 @@ Images are [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/):
 [Laurels Trophy by delapouite](https://game-icons.net/1x1/delapouite/laurels-trophy.html).
 Sounds are [CC 0](http://creativecommons.org/publicdomain/zero/1.0/):
 [Badge Coin Win by steaq](https://freesound.org/people/steaq/sounds/387232/).
+
+## History
+
+* 19.01. - 5.0h - initial version of counter application
+* 22.01. - 1.0h - cleanup
+* 22.01. - 1.0h - various client code variations, see [sample client](https://github.com/codecop/push-counter-client)
+* 05.02. - 3.0h - refresh, JSON content type, copyright, version
+* 07.02. - 1.0h - sound
