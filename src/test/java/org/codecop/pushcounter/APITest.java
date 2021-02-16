@@ -3,6 +3,7 @@ package org.codecop.pushcounter;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.codecop.pushcounter.ApplicationSetupExtension.Port;
 import org.junit.jupiter.api.Test;
@@ -13,46 +14,80 @@ import io.restassured.RestAssured;
 @ExtendWith(ApplicationSetupExtension.class)
 class APITest {
 
-    @Test
-    void shouldRecordEntries(@Port int port) {
+    private static final String CONTENT_JSON = "application/json";
+    private static final String MP3_NAME = "badge-coin-win.mp3";
+
+    private final int port;
+
+    APITest(@Port int port) {
+        this.port = port;
+    }
+
+    private void givenEntryFor(String userName) {
         // http://127.0.0.1:4567/record/<branch-pair>?build=green|<whatever>
         RestAssured. //
             given(). //
                 port(port). //
-                accept("application/json"). //
+                accept(CONTENT_JSON). //
             when(). //
                 params("build", "green"). //
-                get("/record/" + "branch"). //
+                get("/record/" + userName). //
             then(). //
                 statusCode(201). //
-                header("Content-Type", equalTo("application/json")). //
+                header("Content-Type", equalTo(CONTENT_JSON)). //
                 body(equalTo("{ \"message\": \"Saved.\" }"));
     }
-
+    
     @Test
-    void shouldClearEntries(@Port int port) {
+    void shouldClearEntries() {
         // http://127.0.0.1:4567/clear
+
+        givenEntryFor("anyUserToBeCleared");
+        
         RestAssured. //
             given(). //
                 port(port). //
-                accept("application/json"). //
+                accept(CONTENT_JSON). //
             when(). //
                 get("/clear"). //
             then(). //
                 statusCode(200). //
-                header("Content-Type", equalTo("application/json")). //
+                header("Content-Type", equalTo(CONTENT_JSON)). //
                 body(equalTo("{ \"message\": \"Cleared.\" }"));
-        // TODO this is not really a test
+
+        assertNoEntries();
+    }
+
+    private void assertNoEntries() {
+        String body = RestAssured. //
+            given(). //
+                port(port). //
+            when(). //
+                get("/"). //
+                body(). //
+                asString();
+
+        // only 1 row which is header row
+        assertNumberOfRows(1, body);
+    }
+
+    private void assertNumberOfRows(int numberRows, String body) {
+        int actualNumberRows = body.split("<div class=\"row\">").length - 1;
+        assertEquals(numberRows, actualNumberRows);
     }
 
     @Test
-    void shouldListEntriesHtml(@Port int port) {
+    void shouldListEntriesHtml() {
         // http://127.0.0.1:4567/
-
+        String someUser = "branch";
         for (int i = 0; i < 3; i++) {
-            shouldRecordEntries(port);
+            givenEntryFor(someUser);
         }
 
+        assertEntries(3, someUser);
+    }
+
+    private void assertEntries(int number, String userName) {
         RestAssured. //
             given(). //
                 port(port). //
@@ -60,13 +95,14 @@ class APITest {
                 get("/"). //
             then(). //
                 statusCode(200). //
-                body(containsString("branch"), //
-                     containsString("" + 3));
+                body(containsString(userName), //
+                     containsString("<div class=\"col-xs-1\">" + number + "</div>"));
+        
         // TODO assert number of score images. 
     }
 
     @Test
-    void shouldRefreshItselfByDefault(@Port int port) {
+    void shouldRefreshItselfByDefault() {
         // http://127.0.0.1:4567/
 
         RestAssured. //
@@ -81,7 +117,7 @@ class APITest {
     }
 
     @Test
-    void shouldNotRefreshItself(@Port int port) {
+    void shouldNotRefreshItself() {
         // http://127.0.0.1:4567/?refresh=false
         
         RestAssured. //
@@ -96,37 +132,47 @@ class APITest {
     }
 
     @Test
-    void shouldPlayACoinForNewEntryOnce(@Port int port) {
-        String sessionId = RestAssured. //
+    void shouldPlayACoinForNewEntryOnce() {
+        String sessionId = givenSessionId();
+        givenEntryFor("anyUserForSound");
+
+        assertSound(sessionId);
+        assertNoSound(sessionId);
+    }
+
+    private String givenSessionId() {
+        return RestAssured. //
             given(). //
                 port(port). //
             when(). //
                 get("/"). //
                 sessionId();
-
-        shouldRecordEntries(port);
-
-        RestAssured. //
-            given(). //
-                port(port). //
-                sessionId(sessionId). //
-            when(). //
-                get("/"). //
-            then(). //
-                statusCode(200). //
-                body(containsString("badge-coin-win.mp3"));
-
-        RestAssured. //
-            given(). //
-                port(port). //
-                sessionId(sessionId). //
-            when(). //
-                get("/"). //
-            then(). //
-                statusCode(200). //
-                body(not(containsString("badge-coin-win.mp3")));
     }
 
+    private void assertSound(String sessionId) {
+        RestAssured. //
+            given(). //
+                port(port). //
+                sessionId(sessionId). //
+            when(). //
+                get("/"). //
+            then(). //
+                statusCode(200). //
+                body(containsString(MP3_NAME));
+    }
+
+    private void assertNoSound(String sessionId) {
+        RestAssured. //
+            given(). //
+                port(port). //
+                sessionId(sessionId). //
+            when(). //
+                get("/"). //
+            then(). //
+                statusCode(200). //
+                body(not(containsString(MP3_NAME)));
+    }
+    
     // admin
     // TODO admin=true parameter which adds links to add/substract to each user
     // TODO admin=true to add new user with form field (user name should also be a form post parameter)
