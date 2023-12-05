@@ -11,7 +11,7 @@
     <inceptionYear>2021</inceptionYear>
 
     <properties>
-        <spark.version>2.5.5</spark.version>
+        <spark.version>2.7.2</spark.version>
         <slf4j.version>1.7.13</slf4j.version>
         <jetty.version>9.3.6.v20151106</jetty.version>
         <junit.version>5.7.0</junit.version>
