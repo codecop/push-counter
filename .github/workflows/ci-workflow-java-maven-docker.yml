@@ -24,7 +24,7 @@ jobs:
       run: mvn -B clean test package
 
     - name: Keep JAR file
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Package
         path: target/push-counter-1.0-SNAPSHOT-jar-with-dependencies.jar
@@ -34,7 +34,7 @@ jobs:
     needs: build
     steps:
     - name: Check out the repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Download JAR file
       uses: actions/download-artifact@v2
